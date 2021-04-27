@@ -10,7 +10,7 @@ public abstract class Graphe<Element>{
 
 	public abstract ArrayList<Graphe> getPred();
 
-	public abstract Graphe ajoute_succ( Graphe g );
+	public abstract Graphe ajoute_succ( Graphe g, int w );
 
 	public void printGraphe() {
 		System.out.print( "("+ this.contenu() +")");

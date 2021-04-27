@@ -38,12 +38,12 @@ public class Main {
 		Graphe1<Integer> g6 = new Graphe1<Integer>(6);
 		Graphe1<Integer> g7 = new Graphe1<Integer>(7);
 
-		g1.ajoute_succ( g2 );
-		g2.ajoute_succ( g3 );
-		g1.ajoute_succ( g4 );
-		g4.ajoute_succ( g5 );
-		g5.ajoute_succ( g6 );
-		g4.ajoute_succ( g7 );
+		g1.ajoute_succ( g2, 0 );
+		g2.ajoute_succ( g3, 0 );
+		g1.ajoute_succ( g4, 0 );
+		g4.ajoute_succ( g5, 0 );
+		g5.ajoute_succ( g6, 0 );
+		g4.ajoute_succ( g7, 0 );
 
 		System.out.println( "contenu: " + g1.contenu() );
 		System.out.println( "Succ: " + g1.getSucc().get(0).contenu() );

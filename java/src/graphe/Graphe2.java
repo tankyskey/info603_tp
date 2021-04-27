@@ -3,12 +3,11 @@ package graphe;
 import java.util.ArrayList;
 
 public class Graphe2<Element> extends Graphe {
-	Element value;
-	Graphe2[] successeurs;
+	private Element value;
+    private int id;
 
 	public Graphe2(Element value) {
 		this.value = value;
-		this.successeurs = new Graphe2[0];
 	}
 
 	public Element contenu() {
@@ -23,8 +22,10 @@ public class Graphe2<Element> extends Graphe {
 		return null;
 	}
 
-	public Graphe2 ajoute_succ( Graphe gr ) {
+	public Graphe2 ajoute_succ( Graphe gr, int w ) {
 		// TODO
+        Graphe2 g = (Graphe2) gr;
+
 		return this;
 	}
 

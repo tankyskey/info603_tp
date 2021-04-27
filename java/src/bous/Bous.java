@@ -3,21 +3,29 @@ package bous;
 public class Bous {
 	public static void sort(int[] arr) {
 		int iteration = 0;
+        int length = arr.length;
 
-		while( iteration < arr.length/2 ){
-			// AX) arr[iteration .. length-iteration] n'est trie
+		while( iteration < length/2 ){
+			// AX) arr[0 .. iteration] est trié
+            assert sorted(arr, 0, iteration) : "axiome 1 failed";
 
-			for( int i=0; i<arr.length-iteration-1; i++ )
+            // AX) arr[length-iteration .. length] est pas trié
+            assert sorted(arr, length-iteration, length) : "axiome 2 failed";
+
+			for( int i=0; i<length-iteration-1; i++ )
 				if(arr[i] > arr[i+1]) swap(arr, i, i+1);
-			// AX) arr[length-iteration .. length] est trie
+			// AX) arr[length-iteration .. length] est trié
+            assert sorted(arr, length-iteration, length) : "axiome 3 failed";
 
-			for( int i=arr.length-iteration-2; i>iteration+1; i-- )
+			for( int i=length-iteration-2; i>iteration+1; i-- )
 				if(arr[i] < arr[i-1]) swap(arr, i, i-1);
-			// AX) arr[0 .. iteration] est trie
+			// AX) arr[0 .. iteration] est trié
+            assert sorted(arr, 0, iteration) : "axiome 4 failed";
 
 			iteration++;
 		}
 		// AX) arr est trie
+        assert sorted(arr, 0, length) : "axiome 5 failed";
 	}
 
 	public static void swap(int[] arr, int i, int j) {
@@ -25,4 +33,18 @@ public class Bous {
 		arr[i] = arr[j];
 		arr[j] = tmp;
 	}
+
+    /**
+     * @param arr: tableau
+     * @param i: indice de debut
+     * @param j: indice de fin
+     * @return arr[i .. j] sorted ? true : false
+     */
+    public static boolean sorted(int[] arr, int i, int j) {
+        for( ; i<j-1; i++ ) {
+            if( arr[i] > arr[i+1] ) return false;
+        }
+        return true;
+    }
 }
+
