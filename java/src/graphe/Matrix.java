@@ -47,7 +47,7 @@ public class Matrix<Element> {
      * @param b noeud d'arrivé
      * @param w poid du liens
      */
-    public void link(Graphe2 a, Graphe2 b, int w) {
+    public void link(Graphe2<Element> a, Graphe2<Element> b, int w) {
         int idA = nodes.indexOf(a),
             idB = nodes.indexOf(b);
 
