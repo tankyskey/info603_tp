@@ -6,11 +6,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		if( args.length < 1 ) {
-			grapheTest();
+			grapheTest1();
 		} else if( args[0].equals( "bous" ) ) {
 			bousTest();
-		} else if( args[0].equals( "graphe" ) ) {
-			grapheTest();
+		} else if( args[0].equals( "graphe1" ) ) {
+			grapheTest1();
+		} else if( args[0].equals( "graphe2" ) ) {
+			grapheTest2();
 		}
 	}
 
@@ -27,7 +29,7 @@ public class Main {
 
 	}
 
-	public static void grapheTest() {
+	public static void grapheTest1() {
 		// (1)->(2)->(3)
 		//  |->(4)
 		Graphe1<Integer> g1 = new Graphe1<Integer>(1);
@@ -50,6 +52,18 @@ public class Main {
 
 		g1.printGraphe();
 	}
+
+    public static void grapheTest2() {
+        Graphe2<Integer> g1 = new Graphe2<Integer>(1);
+        Graphe2<Integer> g2 = new Graphe2<Integer>(1);
+        Graphe2<Integer> g3 = new Graphe2<Integer>(1);
+
+        g1.ajoute_succ( g2, 1 );
+        g2.ajoute_succ( g3, 1 );
+
+        g1.print();
+        System.out.println(g1);
+    }
 
 }
 

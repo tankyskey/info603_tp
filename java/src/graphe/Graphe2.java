@@ -2,32 +2,44 @@ package graphe;
 
 import java.util.ArrayList;
 
-public class Graphe2<Element> extends Graphe {
+public class Graphe2<Element> extends Graphe<Element> {
 	private Element value;
-    private int id;
+    private Matrix<Element> matrix;
 
 	public Graphe2(Element value) {
 		this.value = value;
+        this.matrix = new Matrix<Element>();
+        this.matrix.addNode(this);
 	}
 
 	public Element contenu() {
 		return this.value;
 	}
 
-	public ArrayList<Graphe2> getSucc() {
+	public ArrayList<Graphe<Element>> getSucc() {
 		return null;
 	}
 
-	public ArrayList<Graphe2> getPred() {
+	public ArrayList<Graphe<Element>> getPred() {
 		return null;
 	}
 
-	public Graphe2 ajoute_succ( Graphe gr, int w ) {
-		// TODO
-        Graphe2 g = (Graphe2) gr;
+	public Graphe2<Element> ajoute_succ( Graphe<Element> gr, int w ) {
+        Graphe2<Element> g = (Graphe2<Element>) gr;
+
+        this.matrix.addNode( g );
+        this.matrix.link(this, g, w);
 
 		return this;
 	}
+
+    public void print() {
+        matrix.printMatrix();
+    }
+
+    public String toString() {
+        return this.matrix.toString();
+    }
 
 }
 
