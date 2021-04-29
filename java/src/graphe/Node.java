@@ -1,16 +1,21 @@
 package graphe;
 
 public class Node {
+    // valeur du noeud
     private String value;
-    private Node from;
-    private Integer poids;
+
+    // id du noeud (affecté automatiquement, évite d'avoir a Labéliser tout les noeuds)
     private int id;
     private static int nbNode = 0;
+
+    // utilisé par djikstra, indique le noeud précédent et le poids total
+    private Node from;
+    private Integer poids;
 
     public Node(String value) {
         this.value = value;
         this.from = null;
-        this.poids = null;
+        this.poids = -1;
         this.id = nbNode;
         nbNode++;
     }
@@ -32,6 +37,11 @@ public class Node {
         this.poids = poids;
     }
 
+    public void resetFrom() {
+        this.from = null;
+        this.poids = -1;
+    }
+
     public void setValue(String value) {
         this.value = value;
     }
@@ -40,3 +50,4 @@ public class Node {
         return ""+id+": "+value;
     }
 }
+

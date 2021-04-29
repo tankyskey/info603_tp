@@ -2,7 +2,6 @@ package graphe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map.Entry;
 
 public class Graphe1 extends Graphe {
     private ArrayList< Node > nodes;
@@ -44,6 +43,11 @@ public class Graphe1 extends Graphe {
 
     public int poids(Node a, Node b) {
         return map.get( a ).get( b );
+    }
+
+    public void reset() {
+        for( Node n: nodes )
+            n.resetFrom();
     }
 
     // GTR

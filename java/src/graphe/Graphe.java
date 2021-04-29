@@ -41,6 +41,8 @@ public abstract class Graphe {
 
     public abstract int poids(Node a, Node b);
 
+    public abstract void reset();
+
     // ============================
 	public Node contenu() {
         return contenu( 0 );
@@ -63,18 +65,17 @@ public abstract class Graphe {
     }
 
     // ============================
-
 	public void printGraphe(Node first, String tabu) {
 		System.out.print( "("+ first +")");
 		int nbSucc = this.succ( first ).size();
 
 		for( Node n: this.succ( first ) ) {
 
-			System.out.print( "->" );
-            this.printGraphe( n, tabu+"      " );
+			System.out.print( "-["+poids(first, n)+"]->" );
+            this.printGraphe( n, tabu+"          " );
 
 			if( nbSucc > 1 )
-				System.out.print("\n"+tabu+"|");
+				System.out.print("\n"+tabu+"|\n"+tabu+"|");
 
 		}
 	}
@@ -88,9 +89,9 @@ public abstract class Graphe {
         if( start != end ) {
             for( Node n: succ(start) ) {
                 int w = start.getPoids() + poids(start, n);
-                if( n.getPoids() == null || w < n.getPoids() ) {
+                if( n.getPoids() == -1 || w < n.getPoids() ) {
                     n.setFrom( start, w );
-                    djikstra( n, end );
+                    djikstraEval( n, end );
                 }
             }
         }
@@ -99,11 +100,16 @@ public abstract class Graphe {
     public ArrayList<Node> djikstra(Node start, Node end) {
         ArrayList<Node> res = new ArrayList<Node>();
 
-        Node d = start;
-        while( d != end ) {
+        djikstraEval( start, end );
+
+        Node d = end;
+        while( d != start ) {
             res.add( d );
-            d = succ( d ).get(0);
+            d = d.getFrom();
         }
+        res.add( d );
+
+        reset();
 
         return res;
     }

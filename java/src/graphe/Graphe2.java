@@ -62,6 +62,11 @@ public class Graphe2 extends Graphe {
         return matrix.poids( nodes.indexOf(a), nodes.indexOf(b) );
     }
 
+    public void reset() {
+        for( Node n: nodes )
+            n.resetFrom();
+    }
+
     // ========= /!\ UNIQUE /!\ ========== \\
     public void print() {
         matrix.printMatrix();
