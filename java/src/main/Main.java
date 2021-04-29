@@ -2,6 +2,8 @@ package main;
 import bous.Bous;
 import graphe.*;
 
+import java.util.ArrayList;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -32,37 +34,46 @@ public class Main {
 	public static void grapheTest1() {
 		// (1)->(2)->(3)
 		//  |->(4)
-		Graphe1<Integer> g1 = new Graphe1<Integer>(1);
-		Graphe1<Integer> g2 = new Graphe1<Integer>(2);
-		Graphe1<Integer> g3 = new Graphe1<Integer>(3);
-		Graphe1<Integer> g4 = new Graphe1<Integer>(4);
-		Graphe1<Integer> g5 = new Graphe1<Integer>(5);
-		Graphe1<Integer> g6 = new Graphe1<Integer>(6);
-		Graphe1<Integer> g7 = new Graphe1<Integer>(7);
+		Graphe1 g1 = new Graphe1();
 
-		g1.ajoute_succ( g2, 0 );
-		g2.ajoute_succ( g3, 0 );
-		g1.ajoute_succ( g4, 0 );
-		g4.ajoute_succ( g5, 0 );
-		g5.ajoute_succ( g6, 0 );
-		g4.ajoute_succ( g7, 0 );
+        Node n0 = new Node("Hello"),
+             n1 = new Node("Hi");
+
+        g1.addNode( n0 );
+        g1.addNode( n1 );
+        g1.link( n0, n1, 1 );
 
 		System.out.println( "contenu: " + g1.contenu() );
-		System.out.println( "Succ: " + g1.getSucc().get(0).contenu() );
+		System.out.println( "Succ: " + g1.succ( n0 ).get(0) );
 
 		g1.printGraphe();
 	}
 
     public static void grapheTest2() {
-        Graphe2<Integer> g1 = new Graphe2<Integer>(1);
-        Graphe2<Integer> g2 = new Graphe2<Integer>(1);
-        Graphe2<Integer> g3 = new Graphe2<Integer>(1);
+        Graphe2 g1 = new Graphe2();
 
-        g1.ajoute_succ( g2, 1 );
-        g2.ajoute_succ( g3, 1 );
+        Node n0 = new Node("Hello"),
+             n1 = new Node("Hi");
 
-        g1.print();
-        System.out.println(g1);
+        g1.addNode( n0 );
+        g1.addNode( n1 );
+        g1.link( n0, n1, 1 );
+
+		System.out.println( "Succ: " + g1.succ( n0 ).get(0) );
+		g1.printGraphe();
+
+        g1 = new Graphe2();
+        for( int i=0; i<10; i++ )
+            g1.addNode( new Node("") );
+
+        g1.link(0, 1, 10).link(1, 2, 15).link(2, 3, 5);
+        g1.link(1, 4, 12).link(4, 3, 2);
+        g1.link(0, 5, 15).link(5, 3, 10);
+		g1.printGraphe();
+
+        for( Node n:  g1.djikstra(g1.contenu(0), g1.contenu(3)) )
+            System.out.println(n);
+
     }
 
 }

@@ -1,34 +1,28 @@
 package graphe;
 
-import java.util.ArrayList;
-
-public class Matrix<Element> {
-    // liste des noeuds du graphe courant
-    private ArrayList<Graphe2<Element>> nodes;
+public class Matrix {
     // nombre de neouds
     private int nbNode;
     // matice representant les liens entre les noeuds avec leur poids
     private int[][] matrix;
 
-    // CSTR
+    // CTR
     public Matrix() {
-        this.matrix = new int[1][1] ;
-        this.matrix[0][0] = 0;
-        this.nodes = new ArrayList<Graphe2<Element>>();
+        //this.matrix = new int[1][1] ;
+        // la case [0][0] doit etre a 0 (de manière générale: [i][i] = 0)
+        //this.matrix[0][0] = 0;
         this.nbNode = 0;
     }
 
-    // METH
+    // MET
     /**
      * ajoute un noeud a la liste de noeuds
      * puis l'ajoute dans la matrix, une colone et une ligne (passe de [n x n] à [n+1 x n+1])
-     * @param g noeud à ajouter
+     * @param n noeud à ajouter
      */
-    public void addNode(Graphe2<Element> g) {
+    public void addNode() {
         // matrix temporaire
         int[][] temp_matrix = matrix;
-        // on ajoute le noeud a liste des noeuds
-        nodes.add( g );
         // on met a jour le nombre de noeud
         nbNode++;
         // extension de la matrix
@@ -47,11 +41,8 @@ public class Matrix<Element> {
      * @param b noeud d'arrivé
      * @param w poid du liens
      */
-    public void link(Graphe2<Element> a, Graphe2<Element> b, int w) {
-        int idA = nodes.indexOf(a),
-            idB = nodes.indexOf(b);
-
-        matrix[idA][idB] = w;
+    public void link(int a, int b, int w) {
+        matrix[a][b] = w;
     }
 
     public String toString() {
@@ -92,6 +83,27 @@ public class Matrix<Element> {
             }  
             System.out.println(" "+i);  
         }
+    }
+
+    public int[] getLine(int i) {
+        return matrix[i];
+    }
+
+    public int[] getCol(int i) {
+        int[] arr = new int[nbNode];
+
+        for( int j=0; j<nbNode; j++)
+            arr[j] = matrix[j][i];
+
+        return arr;
+    }
+
+    public int[][] getMatrix() {
+        return matrix;
+    }
+
+    public int poids(int a, int b) {
+        return matrix[a][b];
     }
 
 }

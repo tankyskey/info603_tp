@@ -1,48 +1,111 @@
 package graphe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public abstract class Graphe<Element>{
+public abstract class Graphe {
 
     /**
-     * @return valeur de la racine
+     * Obtient le "ieme" noeud du graphe (1eme noeud inseré dans le graphe)
+     * @return 1eme noeud du graphe
      */
-	public abstract Element contenu();
+	public abstract Node contenu(int i);
 
     /**
-     * @return liste des successeurs
+     * Obtient la liste des successeurs ordonée de a selon leur poids
+     * @param n neoud de départ
+     * @return liste des noeuds
      */
-	public abstract ArrayList<Graphe<Element>> getSucc();
+	public abstract ArrayList<Node> succ(Node n);
 
     /**
+     * Obtient la list des predecesseurs
+     * @param n noeud de départ de la recherche
      * @return liste des predecesseurs
      */
-	public abstract ArrayList<Graphe<Element>> getPred();
+	public abstract ArrayList<Node> pred(Node n);
 
     /**
-     * @param g noeud fils
+     * @param n noeud a ajouter
+     * @return graphe resultant
+     */
+    public abstract Graphe addNode( Node n );
+
+    /**
+     * @param a noeud de départ
+     * @param b noeud de destination
      * @param w poids du liens du noeud courant au fils
      * @return graphe resultant
      */
-	public abstract Graphe<Element> ajoute_succ( Graphe<Element> g, int w );
+	public abstract Graphe link( Node a, Node b, int w );
 
-	public void printGraphe() {
-		System.out.print( "("+ this.contenu() +")");
-		int nbSucc = this.getSucc().size();
+    public abstract int poids(Node a, Node b);
 
-		for( Graphe<Element> g: this.getSucc() ) {
+    // ============================
+	public Node contenu() {
+        return contenu( 0 );
+    }
+
+	public ArrayList<Node> succ(int i) {
+        return succ( contenu(i) );
+    }
+
+	public ArrayList<Node> pred(int i) {
+        return pred( i );
+    }
+
+    public Graphe addNode(String e) {
+        return addNode( new Node(e) );
+    }
+
+	public Graphe link( int a, int b, int w ) {
+        return link( contenu(a), contenu(b), w );
+    }
+
+    // ============================
+
+	public void printGraphe(Node first, String tabu) {
+		System.out.print( "("+ first +")");
+		int nbSucc = this.succ( first ).size();
+
+		for( Node n: this.succ( first ) ) {
 
 			System.out.print( "->" );
-			g.printGraphe();
+            this.printGraphe( n, tabu+"      " );
 
 			if( nbSucc > 1 )
-				System.out.print("\n |");
+				System.out.print("\n"+tabu+"|");
 
 		}
 	}
+
+	public void printGraphe() {
+        printGraphe( contenu(), "  " );
+        System.out.println("");
+	}
+
+    public void djikstraEval(Node start, Node end) {
+        if( start != end ) {
+            for( Node n: succ(start) ) {
+                int w = start.getPoids() + poids(start, n);
+                if( n.getPoids() == null || w < n.getPoids() ) {
+                    n.setFrom( start, w );
+                    djikstra( n, end );
+                }
+            }
+        }
+    }
+
+    public ArrayList<Node> djikstra(Node start, Node end) {
+        ArrayList<Node> res = new ArrayList<Node>();
+
+        Node d = start;
+        while( d != end ) {
+            res.add( d );
+            d = succ( d ).get(0);
+        }
+
+        return res;
+    }
 }
-
-
-
-
 
