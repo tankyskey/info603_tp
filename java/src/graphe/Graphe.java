@@ -82,9 +82,8 @@ public abstract class Graphe {
     }
 
     // ============================
-	public void printGraphe(Node first, String tabu, ArrayList<Node> settled) {
+	public void printGraphe(Node first, String tabu) {
 		System.out.print( first );
-        settled.add( first );
 		int nbSucc = this.succ( first ).size();
 
 		for( Node n: this.succ( first ) ) {
@@ -99,10 +98,9 @@ public abstract class Graphe {
 	}
 
 	public void printGraphe() {
-        ArrayList<Node> settled = new ArrayList<Node>();
         Node n = contenu();
         if( n != null ) {
-            printGraphe( contenu(), "  ", settled);
+            printGraphe( contenu(), "  ");
             System.out.println("");
         } else {
             System.out.println( "Le graphe vide" );
@@ -113,7 +111,7 @@ public abstract class Graphe {
         if( start != end ) {
             for( Node n: succ(start) ) {
                 int w = start.getPoids() + poids(start, n);
-                if( n.getPoids() == -1 || w < n.getPoids() ) {
+                if( w < n.getPoids() ) {
                     n.setFrom( start, w );
                     djikstraEval( n, end );
                 }

@@ -98,7 +98,7 @@ public class Main {
         Scanner input = new Scanner(System.in);
 
         String status = "";
-        String[] options = {"quitter", "graphe 1", "graphe 2", "ajouter un noeud", "Djikstra", "Afficher le graphe", "Remplire les graphes"};
+        String[] options = {"quitter", "Graphe1", "Graphe2", "ajouter un noeud", "Djikstra", "Afficher le graphe", "Remplire les graphes"};
 
         int choix;
         final int Quitter = 0,
@@ -175,10 +175,12 @@ public class Main {
 
             if( g.succ( d ).size() != 0 ) {
                 ArrayList<Node> parcour = g.djikstra(g.contenu(d), g.contenu(e));
+
                 for( int i=parcour.size()-1; i>=0; i--)
                     System.out.println( parcour.get(i) );
+
             } else {
-                System.out.println("aucun de chemin trouvé :'(");
+                System.out.println("aucun de chemin trouvé");
             }
 
             System.out.println("recommencer ? [y/n]");
