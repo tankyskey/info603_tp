@@ -55,6 +55,9 @@ public abstract class Graphe {
      */
     public abstract int poids(Node a, Node b);
 
+    /**
+     * @brief restore le graphe après djikstra
+     */
     public abstract void reset();
 
     // ============================
@@ -138,4 +141,5 @@ public abstract class Graphe {
         return res;
     }
 }
+
 
