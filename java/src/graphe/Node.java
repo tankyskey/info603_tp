@@ -47,7 +47,7 @@ public class Node {
     }
 
     public String toString() {
-        return ""+id+": "+value;
+        return "\033[31m("+id+": "+value+")\033[0m";
     }
 }
 
