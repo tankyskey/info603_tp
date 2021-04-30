@@ -6,27 +6,23 @@ public class Bous {
         int length = arr.length;
 
 		while( iteration < length/2 ){
-            // AX) arr[iteration..length-iteration] n'est pas trié
-			// AX) arr[0 .. iteration] est trié
-            assert sorted(arr, 0, iteration) : "axiome 1 failed";
-
-            // AX) arr[length-iteration .. length] est trié
-            assert sorted(arr, length-iteration, length) : "axiome 2 failed";
-
-			for( int i=0; i<length-iteration-1; i++ )
+			for( int i=iteration; i<length-iteration-1; i++ ) {
 				if(arr[i] > arr[i+1]) swap(arr, i, i+1);
+            }
 			// AX) arr[length-iteration .. length] est trié
-            assert sorted(arr, length-iteration+1, length) : "axiome 3 failed";
+            assert sorted(arr, length-iteration+1, length) : "axiome 1 failed";
 
-			for( int i=length-iteration-2; i>iteration+1; i-- )
+			for( int i=length-iteration-2; i>iteration; i-- ) {
 				if(arr[i] < arr[i-1]) swap(arr, i, i-1);
+            }
 			// AX) arr[0 .. iteration] est trié
-            assert sorted(arr, 0, iteration+1) : "axiome 4 failed";
+            assert sorted(arr, 0, iteration+1) : "axiome 2 failed";
 
 			iteration++;
 		}
+        printArr( arr, "");
 		// AX) arr est trie
-        assert sorted(arr, 0, length) : "axiome 5 failed";
+        assert sorted(arr, 0, length) : "axiome 3 failed";
 	}
 
 	public static void swap(int[] arr, int i, int j) {
@@ -48,5 +44,13 @@ public class Bous {
         }
         return true;
     }
+
+    public static void printArr( int[] arr, String tab ) {
+        String res = tab;
+        for( int e: arr )
+            res += "["+e+"]";
+        System.out.println(res);
+    }
 }
+
 

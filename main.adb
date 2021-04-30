@@ -31,7 +31,7 @@ procedure partition( t, i, j, k) is
 begin
 	permuter(t[i], median(t[i], t[j], t[(i+j) / 2]) );
 	l := i + 1; k := j;
-	--1) le pivot est au rang i
+	--1) t[i] <= t[j] && t[i] >= t[(i+j)/2)]
 
 	while l <= k do
 		while t[k] > t[i] and l <= k do
@@ -55,9 +55,9 @@ begin
 		--4) l > k    ||    (t[k] <= t[i]    &&    t[l] > t[i])
 
 	end;
-	--5) 
+	--5) t[i] >= t[k]
 
 	permuter(t[i], t[k]);
-	--6) 
+	--6) t[i] <= t[k]
 
 end;

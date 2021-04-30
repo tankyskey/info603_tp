@@ -1,1 +1,1 @@
-main: main.c
+main: main.c axiome.h
